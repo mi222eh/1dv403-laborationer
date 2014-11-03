@@ -7,7 +7,42 @@ window.onload = function(){
 		// Plats för förändring.		
 		// Returnera den konverterade strängen.
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
-	
+		try {
+			if (str.trim() === ""){
+				throw "Skriv något"; //Om man tar bort alla mellanslag och slutar med inget, kasta undantag
+			}
+		} 
+		catch (e) {
+			return e;
+		}
+
+		
+		var tempHolder;
+		var returnString = "";
+
+		for (var i = 0; i < str.length; i += 1){
+			tempHolder = str.charAt(i) //Lagra tecken
+			
+			if (tempHolder == 'a' || tempHolder == 'A') {
+				
+				returnString = returnString + "#"; //Om det är ett a, lägg nästa tecken som #
+				continue;
+			}
+			
+			if (tempHolder == tempHolder.toUpperCase()){
+				returnString = returnString + tempHolder.toLowerCase(); // Om det är en stor bokstav, gör den till en liten bokstav
+				
+			}
+			
+			else if (tempHolder == tempHolder.toLowerCase()) {
+				returnString = returnString + tempHolder.toUpperCase(); //Om det är en liten bokstav, för den till en stor bokstav
+			}
+			else {
+				returnString = returnString + tempHolder; // Annars, lägg till tecknet i strängen
+			}
+		}
+		
+		return returnString;
 
 
 

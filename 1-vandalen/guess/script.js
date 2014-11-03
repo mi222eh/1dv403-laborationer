@@ -27,6 +27,11 @@ window.onload = function(){
 		else if (number > secret) {
 			return [false, "Det hemliga talet är lägre!"];
 		}
+		
+		else{
+			NumberOfGuesses -= 1;
+			return [false, "Ange ett tal mellan 1-100"];
+		}
 
 		
 
