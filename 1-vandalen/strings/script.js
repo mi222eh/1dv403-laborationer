@@ -7,14 +7,11 @@ window.onload = function(){
 		// Plats för förändring.		
 		// Returnera den konverterade strängen.
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
-		try {
+
 			if (str.trim() === ""){
-				throw "Skriv något"; //Om man tar bort alla mellanslag och slutar med inget, kasta undantag
+				throw "Varning: du har inte skrivit något"; //Om man tar bort alla mellanslag och slutar med inget, kasta undantag
 			}
-		} 
-		catch (e) {
-			return e;
-		}
+			
 
 		
 		var tempHolder;
@@ -69,7 +66,7 @@ window.onload = function(){
 			p.innerHTML = answer;		// Skriver ut texten från arrayen som skapats i funktionen.	
 		} catch (error){
 			p.classList.add( "error"); // Växla CSS-klass, IE10+
-			p.innerHTML = error.message;
+			p.innerHTML = error;
 		}
 	
 	});
