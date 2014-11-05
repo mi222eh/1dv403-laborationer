@@ -4,9 +4,38 @@ window.onload = function(){
 
 	
 	var birthday = function(date){
+		var dateTime, currentDate, userDate, tempDate, result;
 		
-
-
+		if (date.trim() === ""){			//Kontrollera om strängen är tom
+			throw "Varning: det är tomt";
+		}
+		
+		dateTime = date.split("-"); 		//Dela upp strängen i delar
+		
+		if (dateTime.length !== 3 || dateTime[0].length !== 4 || dateTime[1].length !== 2 || dateTime[2].length !== 2){
+			throw "Varning: skriv i formatet ÅÅÅÅ-MM-DD"; //kastar ett undantag om formatet inte håller
+		}
+		
+		if (isNaN(dateTime[0]) || isNaN(dateTime[1]) || isNaN(dateTime[2])){    //Kontrollerar om det innehåller nummer
+			throw "Varning: skriv nummer nästa gång";
+		}
+		tempDate = new Date();   //För ett temporärt datum av dagens datum
+		
+		currentDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());  //Sätter in är, månad, dag
+		
+		tempDate = null; 		//Tar bort referensen
+		
+		userDate = new Date(currentDate.getFullYear(), dateTime[1]-1, dateTime[2])	//Skapa date objekt utifrån strängen 
+		console.log(dateTime);
+		console.log(typeof((userDate - currentDate)/(1000*60*60*24)))
+		
+		if ((userDate - currentDate)/(1000*60*60*24) < 0){   //Om det blir negativt...
+			userDate = new Date(userDate.getFullYear()+1, userDate.getMonth(), userDate.getDate()); //... sätt födelsedagen ett år frammåt
+			console.log(typeof((userDate - currentDate)/(1000*60*60*24)))
+			}
+			result = (userDate - currentDate)/(1000*60*60*24);
+			console.log(userDate+",  " + currentDate);
+		return result  //Returnera skillnad mellan datumen i form av dagar
 			// Din kod här.
 
 
@@ -42,7 +71,7 @@ window.onload = function(){
 			p.innerHTML = message;
 		} catch (error){
 			p.classList.add( "error"); // Växla CSS-klass, IE10+
-			p.innerHTML = error.message;
+			p.innerHTML = error;
 		}
 	
 	});
