@@ -5,6 +5,7 @@ window.onload = function(){
 	
 	var birthday = function(date){
 		var dateTime, currentDate, userDate, tempDate, result;
+		console.log(date);
 		
 		if (date.trim() === ""){			//Kontrollera om strängen är tom
 			throw "Varning: det är tomt";
@@ -19,25 +20,28 @@ window.onload = function(){
 		if (isNaN(dateTime[0]) || isNaN(dateTime[1]) || isNaN(dateTime[2])){    //Kontrollerar om det innehåller nummer
 			throw "Varning: skriv nummer nästa gång";
 		}
+		
+		if(dateTime[1] > 12 || dateTime[2] > 31){
+			throw "Varning: kontrollera datumet";
+			
+		}
 		tempDate = new Date();   //För ett temporärt datum av dagens datum
 		
-		currentDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());  //Sätter in är, månad, dag
+		currentDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());  //Sätter in år, månad, dag
 		
 		tempDate = null; 		//Tar bort referensen
 		
-		userDate = new Date(currentDate.getFullYear(), dateTime[1]-1, dateTime[2])	//Skapa date objekt utifrån strängen 
+		userDate = new Date(currentDate.getFullYear(), dateTime[1]-1, dateTime[2]);	//Skapa date objekt utifrån strängen (månaderna är noll-indexerade)
 		console.log(dateTime);
-		console.log(typeof((userDate - currentDate)/(1000*60*60*24)))
+		console.log(typeof((userDate - currentDate)/(1000*60*60*24)));
 		
 		if ((userDate - currentDate)/(1000*60*60*24) < 0){   //Om det blir negativt...
 			userDate = new Date(userDate.getFullYear()+1, userDate.getMonth(), userDate.getDate()); //... sätt födelsedagen ett år frammåt
-			console.log(typeof((userDate - currentDate)/(1000*60*60*24)))
+			console.log(typeof((userDate - currentDate)/(1000*60*60*24)));
 			}
 			result = (userDate - currentDate)/(1000*60*60*24);
 			console.log(userDate+",  " + currentDate);
-		return result  //Returnera skillnad mellan datumen i form av dagar
-			// Din kod här.
-
+		return result;  //Returnera skillnad mellan datumen i form av dagar
 
 
 

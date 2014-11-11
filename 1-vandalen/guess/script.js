@@ -30,7 +30,7 @@ window.onload = function(){
 		
 		else{
 			NumberOfGuesses -= 1;
-			return [false, "Ange ett tal mellan 1-100"];
+			return [false, "Varning: Ange ett tal mellan 1-100"];
 		}
 
 		

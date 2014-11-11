@@ -6,7 +6,7 @@ window.onload = function(){
 	var convertString = function(str){
 		// Plats för förändring.		
 		// Returnera den konverterade strängen.
-		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
+		// Vid fel, kasta ett undantag med ett meddelande till användaren.
 
 			if (str.trim() === ""){
 				throw "Varning: du har inte skrivit något"; //Om man tar bort alla mellanslag och slutar med inget, kasta undantag
@@ -18,21 +18,23 @@ window.onload = function(){
 		var returnString = "";
 
 		for (var i = 0; i < str.length; i += 1){
-			tempHolder = str.charAt(i) //Lagra tecken
+			tempHolder = str.charAt(i); 		//Lagra tecken
 			
 			if (tempHolder == 'a' || tempHolder == 'A') {
 				
-				returnString = returnString + "#"; //Om det är ett a, lägg nästa tecken som #
+				returnString = returnString + "#"; //Om det är ett a eller A, lägg nästa tecken som #
 				continue;
 			}
 			
 			if (tempHolder == tempHolder.toUpperCase()){
-				returnString = returnString + tempHolder.toLowerCase(); // Om det är en stor bokstav, gör den till en liten bokstav
+				returnString = returnString + tempHolder.toLowerCase(); // Om det är en stor bokstav, gör den till en liten bokstav och lägg till den i strängen
+				continue;
 				
 			}
 			
 			else if (tempHolder == tempHolder.toLowerCase()) {
-				returnString = returnString + tempHolder.toUpperCase(); //Om det är en liten bokstav, för den till en stor bokstav
+				returnString = returnString + tempHolder.toUpperCase(); // Om det är en liten bokstav, för den till en stor bokstav och lägg till den i strängen
+				continue;
 			}
 			else {
 				returnString = returnString + tempHolder; // Annars, lägg till tecknet i strängen

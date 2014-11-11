@@ -36,10 +36,10 @@ var makePerson = function(persArr){
     //Sortera namnen, skickar med en funktion som beskriver sorteringen
     names.sort(function(a,b){
         var nameA,nameB
-        nameA = a.toLowerCase();
+        nameA = a.toLowerCase();    //Förvandlar namnen till små bokstäver för att undvika strul
         nameB = b.toLowerCase();
         
-        return nameA.localeCompare(nameB, 'sv');
+        return nameA.localeCompare(nameB, 'sv'); //Jämför nameA med nameB på svenska... Returnerar -1, 1 eller 0
         
     });
     
