@@ -39,7 +39,7 @@ var makePerson = function(persArr){
         nameA = a.toLowerCase();    //Förvandlar namnen till små bokstäver för att undvika strul
         nameB = b.toLowerCase();
         
-        return nameA.localeCompare(nameB, 'sv'); //Jämför nameA med nameB på svenska... Returnerar -1, 1 eller 0
+        return nameA.localeCompare(nameB, 'sv'); //Jämför nameA med nameB på svenska... Returnerar negativt, positivt eller 0
         
     });
     

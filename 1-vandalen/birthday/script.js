@@ -22,14 +22,14 @@ window.onload = function(){
 		}
 		
 		if(dateTime[1] > 12 || dateTime[2] > 31){
-			throw "Varning: kontrollera datumet";
+			throw "Varning: kontrollera datumet"; //...
 			
 		}
-		tempDate = new Date();   //För ett temporärt datum av dagens datum
+		tempDate = new Date();   //lagra ett temporärt datum av dagens datum
 		
-		currentDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());  //Sätter in år, månad, dag
+		currentDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate());  //Sätter in år, månad, dag (hoppar över timmar, sekunder etc...)
 		
-		tempDate = null; 		//Tar bort referensen
+		tempDate = null; 		//Tar bort (typ)
 		
 		userDate = new Date(currentDate.getFullYear(), dateTime[1]-1, dateTime[2]);	//Skapa date objekt utifrån strängen (månaderna är noll-indexerade)
 		console.log(dateTime);

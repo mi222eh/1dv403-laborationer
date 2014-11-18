@@ -14,6 +14,7 @@ window.onload = function(){
 		
 		NumberOfGuesses += 1;
 		if (number < 0 && number > 100){
+			NumberOfGuesses -= 1;
 			return [false, "Talet är utanför intervallet 0 - 100"];
 		}
 		else if (number == secret) {
