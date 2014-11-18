@@ -14,18 +14,20 @@
             </header>
             <main>
                 <article>
-                    <div id="messagefield"></div>
-                    <div>Antal meddelanden: 
-                        <div id="numberOfMessages">
-                            0
+                    <div id="messageArea">
+                        <div id="messagefield"></div>
+                        <div>Antal meddelanden: 
+                            <div id="numberOfMessages">
+                                0
+                            </div>
+                        </div>
+                        <textarea id="inputField"required>
+                        </textarea>
+                        <div id="button">
+                            <button type="button" onclick="init.readInput()">Skriv</button>
                         </div>
                     </div>
-                    <textarea id="inputField"required>
-                    </textarea>
-                    <div id="button">
-                        <button type="button" onclick="">Skriv</button>
-                    </div>
-                    </article>
+                </article>
             </main>
         </div>
     <script type="text/javascript" src="JS/message.js"></script>
