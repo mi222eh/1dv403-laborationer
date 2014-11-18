@@ -1,0 +1,35 @@
+@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
+#container {
+    background: linear-gradient(to bottom, #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%);
+    margin:auto; 
+    width:1200px;
+    
+}
+body{
+    background-color:#752B19;
+}
+header {
+    text-align:center;
+    font-family:"font-family: 'Shadows Into Light', cursive;", cursive;
+}
+textarea {
+    width:50%;
+    height:300px;
+}
+#button{
+    text-align:right;
+}
+.numberText{
+    display:inline-block;
+    text-align:right;
+    padding:1px;
+}
+#numberOfMessages{
+    display:inline-block;
+}
+#messagefield{
+    width:50%;
+    background-color:#FFFFFF;
+    max-height:600px;
+    overflow:auto;
+}
