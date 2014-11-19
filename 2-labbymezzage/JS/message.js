@@ -23,7 +23,7 @@ function Message(message, date){
     Message.prototype.getDateText = function(){
         var tmpdate = THIS.getDate();
         
-        return tmpdate.getDate() + "-" + (tmpdate.getMonth()+1) + "-" + tmpdate.getFullYear() + " " + tmpdate.getHours() + ":" + tmpdate.getMinutes();
+        return tmpdate.getHours() + ":" + (tmpdate.getMinutes()<10? '0':'') + tmpdate.getMinutes() + ":" + (tmpdate.getSeconds()<10? '0':'') +tmpdate.getSeconds();
     };
     Message.prototype.getHTMLText = function(){
         return this.getText() + " (" + Message.prototype.getDateText() + ")";
