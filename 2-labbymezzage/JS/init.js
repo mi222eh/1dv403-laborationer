@@ -3,8 +3,10 @@ var init = {
     messageNumber : 0,
     messages: [],
     init: function(){
+        var input = document.getElementById("inputField");
         var numberArea = document.getElementById("numberOfMessages");
         numberArea.innerHTML = init.messageNumber;
+        input.value = "";
     },
     readInput: function(){
         var input;
@@ -96,5 +98,11 @@ var init = {
         var time = message.getDate();
         alert("Inlägget är skapat " + time.getDate() + "-" + (time.getMonth()+1) +"-"+ time.getFullYear() + " klockan " + message.getDateText());
         
+    },
+    keypressed: function (key){
+        
+        if (!key.shiftKey && key.keyCode === 13) {
+            init.run();
+        }
     }
 };
