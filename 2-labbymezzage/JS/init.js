@@ -113,8 +113,4 @@ var init = {
             init.run();
         }
     },
-    findIndex : function(who){
-        var field = document.getElementById("messageField");
-        console.log(who.value);
-    }
 };
