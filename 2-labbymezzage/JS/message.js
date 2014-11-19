@@ -1,3 +1,6 @@
+"use strict"
+
+
 function Message(message, date){
     
     var THIS = this;
@@ -26,6 +29,9 @@ function Message(message, date){
         return tmpdate.getHours() + ":" + (tmpdate.getMinutes()<10? '0':'') + tmpdate.getMinutes() + ":" + (tmpdate.getSeconds()<10? '0':'') +tmpdate.getSeconds();
     };
     Message.prototype.getHTMLText = function(){
-        return this.getText() + " (" + Message.prototype.getDateText() + ")";
+        return THIS.getText().replace(/\r?\n/g, '<br />');
+    };
+    Message.prototype.remove = function(){
+        THIS.parentElement.removeChild(THIS);
     };
 }

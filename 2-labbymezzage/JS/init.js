@@ -1,7 +1,10 @@
+"use strict"
+
 var init = {
     counter : 0,
     messageNumber : 0,
     messages: [],
+    month: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Okteboer", "November", "December"],
     init: function(){
         var input = document.getElementById("inputField");
         var numberArea = document.getElementById("numberOfMessages");
@@ -31,11 +34,13 @@ var init = {
         //räkna upp
         init.counter += 1;
         init.messageNumber +=1;
-        init.init();
+        
         
         //scrolla längs ned
         var div = document.getElementById("messageField");
         div.scrollTop = div.scrollHeight;
+        
+        init.init();
         
     },
     writeMessages: function(){
@@ -65,7 +70,7 @@ var init = {
         a.setAttribute("href","#");
 
         //create text nodes
-        var text = document.createTextNode(init.messages[init.counter].getText());
+        var text = init.messages[init.counter].getHTMLText();
         var date = document.createTextNode(init.messages[init.counter].getDateText());
         
         //put everything in place
@@ -74,29 +79,32 @@ var init = {
         a.appendChild(img);
         divImages.appendChild(a);
         divImages.appendChild(aTime);
-        node.appendChild(divImages);
-        node.appendChild(text);
+        node.innerHTML = text;
+        node.insertBefore(divImages, node.childNodes[0]);
         node.appendChild(span);
         div.appendChild(node);
-        area.appendChild(div)
+        area.appendChild(div);
+        
         
     },
     removeMessage: function (messageId){
-        if (confirm("Är du säker att du vill radera meddelandet?")){
+        if (confirm("Vill du verkligen radera meddelandet?")){
             var tmpMessage = document.getElementById(messageId);
             tmpMessage.innerHTML = "";
             init.messageNumber += -1;
             init.messages[messageId] = null;
+            
+            tmpMessage.parentNode.removeChild(tmpMessage);
             init.init();
         }
         else{
-            return
+            return;
         }
     },
     time: function(messageId){
         var message = init.messages[messageId];
         var time = message.getDate();
-        alert("Inlägget är skapat " + time.getDate() + "-" + (time.getMonth()+1) +"-"+ time.getFullYear() + " klockan " + message.getDateText());
+        alert("Inlägget är skapat den " + time.getDate() + " " + (init.month[time.getMonth()]) +" "+ time.getFullYear() + " klockan " + message.getDateText());
         
     },
     keypressed: function (key){
@@ -104,5 +112,9 @@ var init = {
         if (!key.shiftKey && key.keyCode === 13) {
             init.run();
         }
+    },
+    findIndex : function(who){
+        var field = document.getElementById("messageField");
+        console.log(who.value);
     }
 };

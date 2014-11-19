@@ -18,6 +18,9 @@ textarea {
     max-width:50%;
     max-height:200px;
 }
+textarea:focus {
+    background-color:#d4d4d4;
+}
 #messageArea{
     position:relative;
     left:25%;
@@ -54,7 +57,7 @@ textarea {
      position:relative;
      display:block;
      font-style:italic;
-     left:80%;
+     left:90%;
  }
  #messageField a{
      float:right;
