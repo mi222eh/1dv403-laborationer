@@ -14,3 +14,10 @@ body {
 .row {
     display:block;
 }
+.row div {
+    display:inline;
+    padding:10px;
+}
+.row div img {
+    padding:5px;
+}
