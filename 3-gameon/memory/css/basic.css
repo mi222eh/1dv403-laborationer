@@ -1,0 +1,16 @@
+body {
+    background-color:#33302F;
+}
+
+#gamingBoard{
+    width:1600px;
+    min-height:600px;
+    background-color:#923508;
+    margin:0 auto;
+    border:solid 3px;
+}
+
+
+.row {
+    display:block;
+}

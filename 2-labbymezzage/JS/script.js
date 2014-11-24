@@ -10,4 +10,5 @@ window.onload = function () {
     //lägg till lyssnaren till elementen
     button.addEventListener("click", init.run);
     input.addEventListener("keypress",init.keypressed);
+    document.getElementById("inputField").value = "";
 };
