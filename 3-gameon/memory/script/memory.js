@@ -5,8 +5,6 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     this.getRow = function(){return row};
     this.getCol = function(){return col};
     
-    var THIS = this;
-    
     this.imgPosition = RandomGenerator.getPictureArray(row, col);
     
     this.area = document.getElementById(gameID);
@@ -14,10 +12,10 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     MemoryGame.prototype.generateGame = function(){
         
         if (gameLayoutID === 0) {
-            THIS.area.appendChild(THIS.layout0());
+            this.area.appendChild(this.layout0());
         }
         else if (gameLayoutID === 1) {
-            THIS.area.appendChild(THIS.layout1());
+            this.area.appendChild(this.layout1());
         }
     };
     MemoryGame.prototype.layout0 = function(){
@@ -27,20 +25,30 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         var picture = 0;
         
         var masterdiv = document.createElement('div');
-        for (var i = 0; i < THIS.getRow(); i+=1) {
+        masterdiv.classList.add('bricks');
+        for (var i = 0; i < this.getRow(); i+=1) {
             
             var rowdiv = document.createElement('div');
             rowdiv.classList.add('row');
             
-            for (var m = 0; m < THIS.getCol(); m+=1) {
+            for (var m = 0; m < this.getCol(); m+=1) {
                 var coldiv = document.createElement('div');
                 coldiv.classList.add(picture);
                 
                 var img = document.createElement('img');
-                img.setAttribute("src", "pics/" + THIS.imgPosition[picture] + ".png");
-                img.setAttribute("alt", "bricka nummer " + picture+1);
+                img.setAttribute("src", "pics/0.png");
+                img.setAttribute("alt", "nr " + (picture+1));
+                img.setAttribute("height", "24px");
+                img.setAttribute("width", "24px");
                 
-                coldiv.appendChild(img);
+                var a = document.createElement('a');
+                a.setAttribute("href", "#");
+                a.addEventListener("click", function(){
+                    
+                });
+                
+                a.appendChild(img);
+                coldiv.appendChild(a);
                 
                 rowdiv.appendChild(coldiv);
                 picture += 1;
@@ -48,6 +56,9 @@ function MemoryGame(row, col, gameID, gameLayoutID){
             masterdiv.appendChild(rowdiv);
         }
         return masterdiv;
+    };
+    MemoryGame.prototype.clickAction = function(event){
+        
     };
     
     

@@ -13,11 +13,30 @@ body {
 
 .row {
     display:block;
+    padding-top:10px;
 }
 .row div {
     display:inline;
     padding:10px;
+
 }
 .row div img {
-    padding:5px;
+    border:solid black 1px;
+    background-color:#ffffff;
+}
+
+.gaming {
+    display:block;
+    padding:20px;
+    border-bottom: solid black 3px;
+    
+    
+}
+.bricks{
+    position:relative;
+    width:30%;
+    margin:0 auto;
+}
+.error{
+    background-color:red;
 }
