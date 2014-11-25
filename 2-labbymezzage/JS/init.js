@@ -32,6 +32,7 @@ var init = {
         
     },
     
+    
     //då det skickas meddelande anropas denna funktion
     run: function(){
         
@@ -46,14 +47,14 @@ var init = {
         
         //skapa message objekt med hjälp av input
         var message = new Message(text, new Date());
-        this.messages.push(message);
+        init.messages.push(message);
         
         //skriva ut
-        this.writeMessages();
+        init.writeMessages();
         
         //räkna upp
-        this.counter += 1;
-        this.messageNumber +=1;
+        init.counter += 1;
+        init.messageNumber +=1;
         
         
         //scrolla längs ned
@@ -61,8 +62,8 @@ var init = {
         div.scrollTop = div.scrollHeight;
         
         //uppdatera sidan (och rensa)
-        this.init();
-        this.clearInputField();
+        init.init();
+        init.clearInputField();
         
     },
     writeMessages: function(){
@@ -129,10 +130,10 @@ var init = {
             tmpMessage.innerHTML = "";
             
             //räkna ned antalet meddelanden
-            this.messageNumber += -1;
+            init.messageNumber += -1;
             
             //ta bort referensen till objektet i listan (index-numret har samma nummer som id:t)
-            this.messages[messageId] = null;
+            init.messages[messageId] = null;
             
             //ta bort elementet div
             tmpMessage.parentNode.removeChild(tmpMessage);

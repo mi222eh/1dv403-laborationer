@@ -2,10 +2,13 @@
 
 function MemoryGame(row, col, gameID, gameLayoutID){
     
+    var that = this;
+    
     this.getRow = function(){return row};
     this.getCol = function(){return col};
     
-    this.imgPosition = RandomGenerator.getPictureArray(row, col);
+    this.Position = RandomGenerator.getPictureArray(this.getRow(), this.getCol());
+    console.log(this.Position);
     
     this.area = document.getElementById(gameID);
     
@@ -43,9 +46,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
                 
                 var a = document.createElement('a');
                 a.setAttribute("href", "#");
-                a.addEventListener("click", function(){
-                    
-                });
+                a.addEventListener("click", this.clickAction);
                 
                 a.appendChild(img);
                 coldiv.appendChild(a);
@@ -58,9 +59,13 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         return masterdiv;
     };
     MemoryGame.prototype.clickAction = function(event){
+        var imgPosition = gameID.position;
+        console.log(event.target);
+        var index = event.target.parentNode.parentNode.getAttribute('class');
+        console.log(index);
+        console.log(imgPosition);
+        console.log(imgPosition[index]);
+        event.target.setAttribute("src", "pics/" + imgPosition[index] + ".png");
         
     };
-    
-    
-    
 }
