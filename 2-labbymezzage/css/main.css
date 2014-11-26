@@ -58,6 +58,7 @@ textarea:focus {
      display:block;
      font-style:italic;
      left:88%;
+     padding:5px;
  }
  #messageField a{
      float:right;
@@ -66,4 +67,8 @@ textarea:focus {
      width:18px;
      height:18px;
      padding:3px;
+ }
+ 
+ #messageField p {
+     word-wrap:break-word;
  }

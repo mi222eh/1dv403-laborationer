@@ -18,20 +18,16 @@ function Message(message, date){
     this.setDate = function(_date){
         date = _date;
     };
-    
+}
     Message.prototype.toString = function(){
         return this.getText() + " (" + Message.prototype.getDateText()+ ")";
     }; 
     
     Message.prototype.getDateText = function(){
-        var tmpdate = THIS.getDate();
+        var tmpdate = this.getDate();
         
         return tmpdate.getHours() + ":" + (tmpdate.getMinutes()<10? '0':'') + tmpdate.getMinutes() + ":" + (tmpdate.getSeconds()<10? '0':'') +tmpdate.getSeconds();
     };
     Message.prototype.getHTMLText = function(){
-        return THIS.getText().replace(/\r?\n/g, '<br />');
+        return this.getText().replace(/\r?\n/g, '<br />');
     };
-    Message.prototype.remove = function(){
-        THIS.parentElement.removeChild(THIS);
-    };
-}

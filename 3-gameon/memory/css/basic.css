@@ -9,34 +9,37 @@ body {
     margin:0 auto;
     border:solid 3px;
 }
+#gamingBoard > div{
+    border-bottom:solid #000000 2px;
+}
 
-
-.row {
+#gamingBoard > div{
     display:block;
-    padding-top:10px;
-}
-.row div {
-    display:inline;
-    padding:10px;
-
-}
-.row div img {
-    border:solid black 1px;
-    background-color:#ffffff;
 }
 
-.gaming {
-    display:block;
-    padding:20px;
-    border-bottom: solid black 3px;
-    
-    
-}
 .bricks{
-    position:relative;
-    width:30%;
-    margin:0 auto;
+    padding:20px;    
 }
-.error{
-    background-color:red;
+
+.row{
+    display:block;
+}
+
+.row > div{
+    display:inline-block;
+    padding:10px;
+    
+}
+
+.row div > a{
+    display:block;
+    background-color:#FFFFFF;
+    font-size:24px;
+    width:24px;
+    height:24px;
+    text-decoration:none;
+    color:#000000;
+}
+.row div a:focus{
+    box-shadow:0px 0px 0px 5px #207D27;
 }

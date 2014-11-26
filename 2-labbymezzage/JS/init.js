@@ -7,7 +7,7 @@ var init = {
     //räknare för antal meddelanden
     messageNumber : 0,
     
-    //lista med meddelanden
+    //lista med meddelanden (för visning)
     messages: [],
     
     //lista med månader
@@ -99,6 +99,13 @@ var init = {
         
         //Lägg in text
         var text = init.messages[init.counter].getHTMLText();
+        var textarray = text.split("<br />");
+        for (var i = 0; i < textarray.length; i+=1) {
+            
+            node.appendChild(document.createTextNode(textarray[i]))
+            node.appendChild(document.createElement('br'))
+        }
+        
         var date = document.createTextNode(init.messages[init.counter].getDateText());
         
         //Sätt allt på plats...
@@ -108,7 +115,7 @@ var init = {
         a.appendChild(img);                                 //...TaBortBilden in i a-taggen för ta bort
         divImages.appendChild(a);                           //...a-taggen in i div av bilder
         divImages.appendChild(aTime);                       //...a-taggen in i div av bilder (samma som ovan)
-        node.innerHTML = text;                              //...lägg in meddelandet i p-taggen (kallas för node i detta fall)
+        //node.innerHTML = text;                              //...lägg in meddelandet i p-taggen (kallas för node i detta fall)
         node.insertBefore(divImages, node.childNodes[0]);   //...sätt div med bilder in i p-taggen FÖRE texten
         node.appendChild(span);                             //...sätt datumen (som finns i span) sist i p-taggen
         div.appendChild(node);                              //...sätt in p-taggen i en div
@@ -132,18 +139,38 @@ var init = {
             //räkna ned antalet meddelanden
             init.messageNumber += -1;
             
+            //fixa div id:n
+            init.fixId(messageId);
+            
             //ta bort referensen till objektet i listan (index-numret har samma nummer som id:t)
-            init.messages[messageId] = null;
+            init.messages.splice(messageId, 1);
+            
+            
             
             //ta bort elementet div
             tmpMessage.parentNode.removeChild(tmpMessage);
             
+            init.counter += -1;
             //uppdatera numret
             init.init();
         }
         else{
             return;
         }
+    },
+    
+    fixId: function(messageId){
+        var divNodes = document.getElementById('messageField').childNodes;
+        
+        for (var i = 0; i < init.messages.length; i+=1) {
+            
+            if (divNodes[i].getAttribute('id') > messageId) {
+                divNodes[i].id = i-1;
+            }
+            
+        }
+        
+        
     },
     
     //funktion för hämtandet av tid
