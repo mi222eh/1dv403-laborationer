@@ -3,7 +3,7 @@
 window.onload = function(){
     myGames.init();
 };
-
+/*
 document.onkeydown = function(e){
     var code = e.keyCode;
     
@@ -35,3 +35,4 @@ document.onkeydown = function(e){
     }
     
 };
+*/

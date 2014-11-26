@@ -6,5 +6,7 @@ var myGames = {
         game2.generateGame();
         console.log(game1);
         console.log(game2);
+        
+        game1.focus();
     }
 };

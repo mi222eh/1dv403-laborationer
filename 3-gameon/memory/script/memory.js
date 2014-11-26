@@ -2,10 +2,42 @@
 
 function MemoryGame(row, col, gameID, gameLayoutID){
     
+    
+    var focusX = 0;
+    var focusY = 0;
     var THIS = this;
-    
-    
     var memory_Values = [];                                     //ska lagra 2 värden (brickorna)
+    
+    this.handleDown = function(){
+        if ((focusY + 1) < (row)) {
+            focusY += 1;
+        }
+        this.focus();
+    };
+    this.handleUp = function(){
+      if ((focusY - 1) >= 0) {
+          focusY += -1;
+      }  
+      this.focus();
+    };
+    this.handleLeft = function(){
+        if ((focusX - 1) >= 0) {
+            focusX += -1;
+        }
+        this.focus();
+    };
+    this.handleRight = function(){
+        if ((focusX+1) < (col)) {
+            focusX += 1;
+        }
+        this.focus();
+    };
+    this.focus = function(){
+        var targetFocus = document.getElementById(gameID).getElementsByClassName('bricks')[0];
+        var rowNumber = targetFocus.childNodes[focusY];
+        var columnNumber = rowNumber.childNodes[focusX];
+        columnNumber.childNodes[0].focus();
+    };
     
     this.getgameLayoutID = function(){return gameLayoutID};
     this.getgameID = function(){return gameID};
@@ -22,6 +54,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     this.clearmemoryValue = function(){memory_Values = []};
     
     var Position = RandomGenerator.getPictureArray(this.getRow(), this.getCol());
+    
     console.log(this.getPosition());
     
     this.area = document.getElementById(gameID);
@@ -33,7 +66,6 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         }
         else if (this.getgameLayoutID() === 1) {
             layout = this.layout1();
-            console.log(layout);
             this.area.appendChild(layout);
         }
     };
@@ -67,6 +99,9 @@ function MemoryGame(row, col, gameID, gameLayoutID){
                     _this.clickAction(event);
                 
                 });
+                a.addEventListener("keypress", function(event) {
+                    _this.navigation(event);
+                });
                 
                 a.appendChild(img);
                 coldiv.appendChild(a);
@@ -79,14 +114,49 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         return masterdiv;
     };
     
+    MemoryGame.prototype.navigation = function(event){
+        var code = event.keyCode;
+    
+        console.log(code);
+        
+        switch (code) {
+            case 38:
+                this.handleUp();
+                event.preventDefault();
+                break;
+                
+            case 37:
+                this.handleLeft();
+                event.preventDefault();
+                break;
+            
+            case 39:
+                this.handleRight();
+                event.preventDefault();
+                break;
+            
+            case 40:
+                this.handleDown();
+                event.preventDefault();
+                break;
+            
+            default:
+        }
+    }
+        
+        
     MemoryGame.prototype.clickAction = function(event){
-        console.log(event.target);
-        var index = event.target.getAttribute('class').slice(1);
-        console.log(index);
-        console.log(this.getPosition(index));
-        event.target.setAttribute("src", "pics/" + this.getPosition(index) + ".png");
-        event.target.setAttribute("alt", this.getPosition(index));
-        this.checkValues(event.target);
+        
+                console.log(event.currentTarget);
+                var image = event.currentTarget.childNodes[0];
+                var index = image.getAttribute('class').slice(1);
+                console.log(index);
+                console.log(this.getPosition(index));
+                image.setAttribute("src", "pics/" + this.getPosition(index) + ".png");
+                image.setAttribute("alt", this.getPosition(index));
+                this.checkValues(event.currentTarget.childNodes[0]);
+     
+       
         
     };
     
@@ -96,12 +166,11 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         if (_this.getWholememoryValue().length >= 2) {
             
             if(_this.validateValues()){
-                alert("rätt!");
+                
             }
             
             else{
                 
-                alert("fel!");
                 setTimeout(this.flipBack, 1000, _this);
             
             }
@@ -110,7 +179,6 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     };
     
     MemoryGame.prototype.validateValues = function(){
-        var _this = this;
         
         var img1 = this.getmemoryValue(0);
         var img2 = this.getmemoryValue(1);
@@ -125,15 +193,51 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         }
         
         else{
-            return false
+            return false;
         }
     };
     
     MemoryGame.prototype.flipBack = function(_this){
-        console.log(_this.getWholememoryValue())
+        console.log(_this.getWholememoryValue());
         _this.getmemoryValue(0).setAttribute("src", "pics/0.png");
         _this.getmemoryValue(1).setAttribute("src", "pics/0.png");
         
         _this.clearmemoryValue();
+    };
+    
+    MemoryGame.prototype.focusListenerAdder = function(){
+        
+        document.getElementById(this.getgameID()).addEventListener("keypress", this.handleArrows);
+    };
+    
+    MemoryGame.prototype.handleArrows = function(e){
+    var code = e.keyCode;
+    
+    console.log(code);
+    
+    switch (code) {
+        case 38:
+            this.handleUp();
+            e.preventDefault();
+            break;
+            
+        case 37:
+            this.handleLeft();
+            e.preventDefault();
+            break;
+        
+        case 39:
+            this.handleRight();
+            e.preventDefault();
+            break;
+        
+        case 40:
+            this.handleDown();
+            e.preventDefault();
+            break;
+        
+        default:
+            // code
+    } 
     };
     
