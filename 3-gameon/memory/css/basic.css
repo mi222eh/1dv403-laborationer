@@ -1,6 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
+
 body {
     background-color:#33302F;
 }
+
+#head {
+    margin:0 auto;
+    width:800px;
+    background-color:#E84623;
+    text-align:center;
+    border:solid #000000 3px;
+    border-radius:7px;
+    font-family:"Merriweather Sans";
+}
+
 
 #gamingBoard{
     width:1600px;
