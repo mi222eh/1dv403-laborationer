@@ -22,12 +22,13 @@ body {
     margin:0 auto;
     border:solid 3px;
 }
-#gamingBoard > div{
-    border-bottom:solid #000000 2px;
-}
 
 #gamingBoard > div{
     display:block;
+    border: solid #190701 2px;
+    border-radius:4px;
+    padding:7px;
+    background-color:#AD5E32;
 }
 
 .bricks{
@@ -53,6 +54,25 @@ body {
     text-decoration:none;
     color:#000000;
 }
+.row div a img {
+    text-align:center;
+}
 .row div a:focus{
     box-shadow:0px 0px 0px 5px #207D27;
+}
+
+div.rightPadding{
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    padding-right:100px;
+}
+
+.gaming ._tries {
+    display:inline-block;
+}
+
+._win {
+    color:#1E4A0B;
+    font-size:24px;
 }
