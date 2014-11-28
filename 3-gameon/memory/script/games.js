@@ -1,3 +1,5 @@
+"use strict"
+
 var myGames = {
     init: function(){
         var game1 = new MemoryGame(2, 2, "game1", 1);
