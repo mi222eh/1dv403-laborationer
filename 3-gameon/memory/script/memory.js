@@ -35,6 +35,17 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     this.getWholememoryValue = function(){return memory_Values};
     this.clearmemoryValue = function(){memory_Values = []};
     
+    /*
+    this.resetValues = function(){
+        if (this.listenToClick) {
+        numberOfSuccess = 0;
+        numberOfTries = 0;
+        memory_Values = [];
+        Position = RandomGenerator.getPictureArray(this.getRow(), this.getCol());
+        }
+    };
+    */
+    
     //<-------          Metoder för fokuset             ----->//
     this.handleDown = function(){
         if ((focusY + 1) < (row)) {
@@ -74,11 +85,34 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     //              Område för spelplanen@
     this.area = document.getElementById(gameID);
     
+    this.listenToClick = true;
+    
     
 }  
 
+    ////<-------          (Test) Metod för att återställa spelplanen   ------>//
+    MemoryGame.prototype.reset = function(_this){
+        _this.area.innerHTML = "";
+        _this.resetValues();
+        _this.generateGame();
+        
+    };
+
     //<-------          Metod för att generera spelplanen   ------>//
     MemoryGame.prototype.generateGame = function(){
+        var _this = this;
+        
+        //<--bara för test-->//
+        var resetButton = document.createElement('button');
+        var resetText = document.createTextNode("Reset");
+        resetButton.appendChild(resetText);
+        resetButton.setAttribute("type", "button");
+        resetButton.addEventListener("click", function(){
+            _this.reset(_this)
+        });
+        
+        
+        //<--slut på test-->//
         
         //Generar allt gemensamt här...
         var gameInfoDiv = document.createElement('div');
@@ -105,6 +139,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
             
             this.area.appendChild(this.layout1());
         }
+        this.area.appendChild(resetButton);
         this.updateNumbers();
     };
     
@@ -133,14 +168,14 @@ function MemoryGame(row, col, gameID, gameLayoutID){
                 img.setAttribute("height", "24px");
                 img.setAttribute("width", "24px");
                 img.setAttribute("src", "pics/0.png");
-                img.classList.add("_" + picture);
+                img.classList.add("brick_" + picture);
                 
                 a.setAttribute("href", "#");
                 a.addEventListener("click", function(event) {
-                    _this.clickAction(event);
+                    _this.clickAction(event, _this);
                  });
-                        a.addEventListener("keypress", function(event) {
-                        _this.navigation(event);
+                        a.addEventListener("keydown", function(event) {
+                        _this.navigation(event, _this);
                  });
                 
                 //sätta dit
@@ -165,14 +200,14 @@ function MemoryGame(row, col, gameID, gameLayoutID){
                 img.setAttribute("height", "24px");
                 img.setAttribute("width", "24px");
                 img.setAttribute("src", "pics/0.png");
-                img.classList.add("_" + picture);
+                img.classList.add("brick_" + picture);
                 
                 a.setAttribute("href", "#");
                 a.addEventListener("click", function(event) {
-                    _this.clickAction(event);
+                    _this.clickAction(event, _this);
                  });
-                        a.addEventListener("keypress", function(event) {
-                        _this.navigation(event);
+                        a.addEventListener("keydown", function(event) {
+                        _this.navigation(event, _this);
                  });
                 
                 //sätta dit
@@ -187,6 +222,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
             }
             masterdiv.appendChild(rowdiv);
         }
+        _this.listenToClick = true;
         return masterdiv;
     };
 
@@ -219,14 +255,14 @@ function MemoryGame(row, col, gameID, gameLayoutID){
                 img.setAttribute("height", "24px");
                 img.setAttribute("width", "24px");
                 img.setAttribute("src", "pics/0.png");
-                img.classList.add("_" + picture);
+                img.classList.add("brick_" + picture);
                 
                 a.setAttribute("href", "#");
-                a.addEventListener("click", function(event) {
-                    _this.clickAction(event);
-                 });
-                a.addEventListener("keypress", function(event){
-                    _this.navigation(event);
+                a.addEventListener("click", function (event) {
+                    _this.clickAction(event, _this);
+                });
+                a.addEventListener("keydown",function (event) {
+                    _this.navigation(event, _this);
                 });
 
                 
@@ -244,27 +280,27 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     };
     
     //<------- Metod för navigation ------->//
-    MemoryGame.prototype.navigation = function(event){
+    MemoryGame.prototype.navigation = function(event, _this){
         var code = event.keyCode;
         
         switch (code) {
             case 38:
-                this.handleUp();
+                _this.handleUp();
                 event.preventDefault();
                 break;
                 
             case 37:
-                this.handleLeft();
+                _this.handleLeft();
                 event.preventDefault();
                 break;
             
             case 39:
-                this.handleRight();
+                _this.handleRight();
                 event.preventDefault();
                 break;
             
             case 40:
-                this.handleDown();
+                _this.handleDown();
                 event.preventDefault();
                 break;
             
@@ -273,36 +309,40 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     }
         
     //<--------------   Metod för klickhändelser (då en bricka ska vändas) -------->//
-    MemoryGame.prototype.clickAction = function(event){
-                event.preventDefault();
-                var _this = this;
+    MemoryGame.prototype.clickAction = function(event, _this){
+        
+            if (_this.listenToClick) {
                 
-                var a = event.currentTarget;
-                var aClone = a.cloneNode(true);
-                
-                //Ersätt a med klonad a (för att ta bort listeners)
-                a.parentNode.replaceChild(aClone, a);
-                
-                var image = aClone.childNodes[0];
-                var index = image.getAttribute('class').slice(1);
-                
-                
-                
-                
-                //Nya attribut på bilden sätts
-                image.setAttribute("alt", this.getPosition(index));
-                image.setAttribute("src", "pics/" + this.getPosition(index) + ".png");
-                
-                
-                
-                //Hoppsan, "keypress" gick också bort
-                aClone.addEventListener("keypress", function(event) {
-                    _this.navigation(event);
-                });
-                
-                
-                this.checkValues(aClone.childNodes[0]);
-                _this.setXAndYFocus(aClone);
+                    event.preventDefault();
+                    
+                    var a = event.currentTarget;
+                    
+                    var aClone = a.cloneNode(true);
+                    
+                    //Ersätt a med klonad a (för att ta bort listeners)
+                    a.parentNode.replaceChild(aClone, a);
+                    
+                    var image = aClone.childNodes[0];
+                    var index = image.getAttribute('class').slice(6);
+                    
+                    
+                    
+                    
+                    //Nya attribut på bilden sätts
+                    image.setAttribute("alt", _this.getPosition(index));
+                    image.setAttribute("src", "pics/" + _this.getPosition(index) + ".png");
+                    
+                    
+                    
+                    //Hoppsan, "keypress" gick också bort
+                    aClone.addEventListener("keydown", function (event) {
+                        _this.navigation(event, _this);
+                    });
+                    
+                    
+                    _this.checkValues(aClone.childNodes[0]);
+                    _this.setXAndYFocus(aClone);
+            }
                 
 
                 
@@ -317,8 +357,8 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         var _this = this;
         
         //Sätt in referensen till image-taggen i arrayen
-        this.setmemoryValue(targetValue);
-        console.log(this.getWholememoryValue());
+        _this.setmemoryValue(targetValue);
+        console.log(_this.getWholememoryValue());
         
         //Kolla arrayens storlek (förutsätter att den blir högst två, men man vet aldrig)
         if (_this.getWholememoryValue().length >= 2) {
@@ -331,7 +371,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
             }
             
             else{
-                
+                _this.listenToClick = false;
                 setTimeout(_this.flipBack, 1000, _this);
             
             }
@@ -348,8 +388,8 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         var img1 = this.getmemoryValue(0);
         var img2 = this.getmemoryValue(1);
         
-        var pos1 = img1.getAttribute('class').slice(1);
-        var pos2 = img2.getAttribute('class').slice(1);
+        var pos1 = img1.getAttribute('class').slice(6);
+        var pos2 = img2.getAttribute('class').slice(6);
         
         if (this.getPosition(pos1) === this.getPosition(pos2)) {
           return true;
@@ -372,14 +412,15 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         _this.getmemoryValue(1).setAttribute("alt", "?");
         
         //Lägg till listeners igen
-        _this.getmemoryValue(0).parentNode.addEventListener("click", function(event) {
-                    _this.clickAction(event);
+        _this.getmemoryValue(0).parentNode.addEventListener("click", function (event) {
+                    _this.clickAction(event, _this);
                  });
-        _this.getmemoryValue(1).parentNode.addEventListener("click", function(event) {
-                    _this.clickAction(event);
+        _this.getmemoryValue(1).parentNode.addEventListener("click", function (event) {
+                    _this.clickAction(event, _this);
                  });
                  
         _this.clearmemoryValue();
+        setTimeout(function() {_this.listenToClick = true;}, 100);
         
     };
     
