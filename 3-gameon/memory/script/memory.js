@@ -35,16 +35,18 @@ function MemoryGame(row, col, gameID, gameLayoutID){
     this.getWholememoryValue = function(){return memory_Values};
     this.clearmemoryValue = function(){memory_Values = []};
     
-    /*
+    
     this.resetValues = function(){
         if (this.listenToClick) {
         numberOfSuccess = 0;
         numberOfTries = 0;
+        focusX = 0;
+        focusY = 0;
         memory_Values = [];
         Position = RandomGenerator.getPictureArray(this.getRow(), this.getCol());
         }
     };
-    */
+    
     
     //<-------          Metoder för fokuset             ----->//
     this.handleDown = function(){
@@ -95,6 +97,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         _this.area.innerHTML = "";
         _this.resetValues();
         _this.generateGame();
+        _this.focus();
         
     };
 
@@ -310,10 +313,10 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         
     //<--------------   Metod för klickhändelser (då en bricka ska vändas) -------->//
     MemoryGame.prototype.clickAction = function(event, _this){
-        
+            event.preventDefault();
             if (_this.listenToClick) {
                 
-                    event.preventDefault();
+                    
                     
                     var a = event.currentTarget;
                     
@@ -431,7 +434,7 @@ function MemoryGame(row, col, gameID, gameLayoutID){
         
         if (this.getnumberOfSuccess() === this.getPositionArray().length) {
             var winplace = document.getElementById(this.getgameID()).getElementsByClassName('_win')[0];
-            winplace.innerHTML = "Memory: avklarat";
+            winplace.innerHTML = "Memory avklarat på " + this.getnumberOfTries() + " försök";
         }
     };
     
