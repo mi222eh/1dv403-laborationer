@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Bitter);
+
+
  body {
 	background-color: #000000;
 	
@@ -13,8 +16,19 @@
 
  table, th, td {
     border: 1px solid black;
+    padding:5px;
 }
 
-win {
-	
+.win {
+	color:#064206;
+	font-size:26px;
+	text-align:center;
+	padding:5px;
+	border-bottom:solid #064206 2px;
+	font-family:"Bitter";
 }
+
+#quizboard div{
+    padding:3px;
+}
+

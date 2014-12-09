@@ -1,9 +1,12 @@
 "use strict"
 
+//<-------- Statisk objekt ------>
 var init = {
 	questionsCounter: 0,
 	anwersAndTries: [],
 	currentMessage: {},
+
+    //<-------- Läser och sparar undan meddelandet från servern ------>
 	readServerMessage: function(message){
 		var result = JSON.parse(message);
 		console.log(result.nextURL);
@@ -12,6 +15,8 @@ var init = {
 		init.renderPage();
 	
 	},
+
+    //<-------- Renderar nästa fråga ------>
 	renderPage: function(){
 		console.log(init.currentMessage);
 		var area = document.getElementById("quizboard");
@@ -50,6 +55,7 @@ var init = {
 
 	},
 
+    //<-------- Funktion som skickar användarens svar ------>
 	sendAnswer: function () {
 		var input = {};
 		input.answer = document.getElementById("answer").value;
@@ -82,6 +88,7 @@ var init = {
 		xhrPost.send(JSON.stringify(input));
 	},
 
+    //<-------- Funktion som anropas då svaret är rätt ------>
 	rightAnswer: function(serverMessage){
 		init.addATry(init.questionsCounter);
 		var serverObject = JSON.parse(serverMessage);
@@ -115,11 +122,21 @@ var init = {
         
 	},
 
-	wrongAnswer: function(){
-		init.addATry(init.questionsCounter);
-		document.getElementById("information").innerHTML = "Fel svar";
+    //<-------- Funktion som anropas då svaret är fel ------>
+	wrongAnswer: function () {
+	    var infoArea = document.getElementById("information");
+	    
+	    console.log(infoArea.value);
+	    if (init.anwersAndTries[init.questionsCounter].numberOfTries === 0) {
+	        infoArea.innerHTML = "Fel svar";
+	    }
+	    else {
+	        infoArea.innerHTML += "!";
+	    }
+	    init.addATry(init.questionsCounter);
 	},
 
+    //<-------- Anropas då det inte finns  ------>
 	showResults: function(){
 		var area = document.getElementById("quizboard");
 

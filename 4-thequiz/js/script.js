@@ -1,5 +1,6 @@
 "use strict"
 
+//<--------------Lägger till en event listener på knapp som anropar servern för första gången----------->
 window.onload = function(){
     document.getElementById("button").addEventListener("click", function(){
         var xhr = new XMLHttpRequest();
