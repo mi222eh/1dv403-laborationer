@@ -1,0 +1,43 @@
+#windowmanager {
+	height: 640px;
+	width: 1024px;
+	margin: 0 auto;
+	background-image: url("../pics/backgroundDefault.png");
+}
+
+body {
+	background-color: black;
+}
+
+#menybar {
+	position: absolute;
+	margin-top: 595px;
+	width:1024px;
+	height: 45px;
+	border-top: solid black 1px;
+	background-color: rgba(0,0,0,0.3);
+}
+
+#menybar a {
+	display: inline-block;
+	width:45px;
+	height:45px;
+}
+
+#menybar a:hover{
+	background-color: rgba(0,0,0,0.5);
+}
+
+#menybar a:active{
+	background-color: rgba(255,255,255,0.1);
+}
+
+.
+
+/*
+a:link 
+a:visited 
+a:hover 
+a:focus 
+a:active 
+*/
