@@ -1,5 +1,9 @@
 "use strict"
 var init = {
+
+	pictures: {},
+
+	windowOpen: false,
 	run: function(){
 
 		var menybar = document.getElementById('menybar');
@@ -13,8 +17,12 @@ var init = {
 
 		//link editing
 		link.addEventListener("click", function(e){
-			init.openWindow(e);
-			init.loadPictures();
+			e.preventDefault();
+			if (!init.windowOpen) {
+				init.openWindow(e);
+				init.getPictures();
+			};
+			
 			return false;
 		});
 		link.setAttribute("href", "#");
@@ -25,6 +33,7 @@ var init = {
 	},
 
 	openWindow: function(e){
+
 		//create window
 
 		var window_  = document.createElement('div');
@@ -55,6 +64,7 @@ var init = {
 		exitLink.addEventListener("click", function(e){
 			e.preventDefault();
 			window_.parentNode.removeChild(window_);
+			init.windowOpen = false;
 		});
 
 
@@ -73,12 +83,15 @@ var init = {
 
 		document.getElementById('windowmanager').appendChild(window_);
 
-		e.preventDefault();
+
+		init.windowOpen = true;
 
 	},
 
-	loadPictures: function(){
-		var pictures = init.getPictures();
+	loadPictures: function(pictures){
+		init.pictures = pictures;
+
+		console.log(init.pictures)
 	},
 
 	getPictures: function(){
@@ -87,7 +100,8 @@ var init = {
 		xhr.onreadystatechange = function(){
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    init.readServerMessage(xhr.responseText);
+                    var response = init.readServerMessage(xhr.responseText);
+                    init.loadPictures(response);
                     
                 }
                 else{
@@ -96,7 +110,16 @@ var init = {
             }
             console.log("svar");
         };
-        
+
 		xhr.open("GET", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
+		xhr.send(null);
+
+		
+	},
+
+	readServerMessage: function(message){
+		var result = JSON.parse(message);
+		console.log(result);
+		return result;
 	},
 }
