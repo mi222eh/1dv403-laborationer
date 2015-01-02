@@ -1,9 +1,10 @@
 "use strict"
 var init = {
 
-	pictures: {},
+	pictures: [],
 
 	windowOpen: false,
+
 	run: function(){
 
 		var menybar = document.getElementById('menybar');
@@ -88,11 +89,7 @@ var init = {
 
 	},
 
-	loadPictures: function(pictures){
-		init.pictures = pictures;
-
-		console.log(init.pictures)
-	},
+	
 
 	getPictures: function(){
 		var xhr = new XMLHttpRequest();
@@ -105,7 +102,7 @@ var init = {
                     
                 }
                 else{
-                    console.log("läsfel, status: " + xhr.status);
+                    console.log("3rr0r, Zt@tus: " + xhr.status);
                 }
             }
             console.log("svar");
@@ -114,12 +111,110 @@ var init = {
 		xhr.open("GET", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
 		xhr.send(null);
 
+		init.loading(true);
+
 		
+	},
+
+	loadPictures: function(pictures){
+		init.pictures = pictures;
+		console.log(init.pictures);
+
+		var height, width;
+
+		width = init.calcWidth();
+		console.log(width);
+
+		height = init.calcHeight();
+		console.log(height);
+
+		var area = document.getElementsByClassName("content")[0];
+
+		for (var i = 0; i < init.pictures.length; i+=1) {
+			(function(){
+				var id = i;
+
+				var picdiv = document.createElement("div");
+				var div = document.createElement("a");
+				var picture = document.createElement("img");
+
+				div.style.height = height + "px";
+				div.style.width = width + "px";
+				div.setAttribute("href", "#");
+				div.addEventListener("click", function(e){
+					init.changeBackground(e, id)
+				})
+
+				picture.setAttribute("src", init.pictures[i].thumbURL);
+				picture.setAttribute("alt", "bild "+ i);
+
+				div.appendChild(picture);
+				picdiv.appendChild(div);
+				area.appendChild(picdiv);
+
+				if (i === init.pictures.length - 1) {
+					picture.onload = init.loading(false);
+				}
+
+			}())
+		}
+
 	},
 
 	readServerMessage: function(message){
 		var result = JSON.parse(message);
-		console.log(result);
 		return result;
+	},
+
+	calcWidth: function(){
+		var width = 0;
+		for (var i = 0; i < init.pictures.length; i+=1) {
+			if (init.pictures[i].thumbWidth > width) {
+				width = init.pictures[i].thumbWidth;
+			};
+		};
+		return width;
+	},
+
+	calcHeight: function(){
+		var height = 0;
+		for (var i = 0; i < init.pictures.length; i+=1) {
+			if (init.pictures[i].thumbHeight > height) {
+				height = init.pictures[i].thumbHeight;
+			};
+		};
+		return height;
+	},
+
+	loading: function(bool){
+		var infoDiv = document.getElementsByClassName('info')[0];
+		if (bool) {
+
+			var div = document.createElement('div');
+			var img = document.createElement('img');
+			var loadText = document.createElement('p');
+			var text = document.createTextNode("Laddar...");
+
+			img.setAttribute("src", "pics/ajax-loader.gif");
+			img.setAttribute("alt", "Laddar...");
+
+			loadText.appendChild(text);
+			div.appendChild(img);
+			div.appendChild(loadText);
+
+			infoDiv.appendChild(div);
+		}
+		else{
+			infoDiv.removeChild(infoDiv.childNodes[0])
+		}
+	},
+
+	changeBackground: function(e, id){
+		console.log(id);
+		e.preventDefault();
+		var backgroundObject = init.pictures[id];
+		var background = document.getElementById("windowmanager");
+		background.style.backgroundImage = "url(" + backgroundObject.URL + ")";
+		background.style.backgroundSize = backgroundObject.width + "px " + backgroundObject.height + "px";
 	},
 }

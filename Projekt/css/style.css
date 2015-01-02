@@ -63,6 +63,13 @@ body {
 	width:45px;
 }
 
+.exitLink:hover{
+	background-color: rgba(0,0,0,0.5);
+}
+.exitLink:active{
+	background-color: rgba(0,0,0,0.2);
+}
+
 .windowIcon {
 	width:20px;
 	height:20px;
@@ -82,10 +89,42 @@ body {
 	height:347px; 
 	overflow-y:auto;
 }
+.content a{
+	display:inline-block;
+	background-color: rgba(0,0,0,0.1);
+	padding: 6px;
+	border:solid rgba(0,0,0,0.3) 2px;
+	border-radius: 7px;
+}
+
+.content a:hover {
+	background-color: rgba(0,0,0,0.2);
+}
+
+.content div a img {
+	display:block;
+	margin:0 auto;
+}
+.content div{
+	display: inline-block;
+	padding:2px;
+}
 .info{
 	height:20px;
 	background-color: #785D23;
 }
+
+.info div{
+	height:100%;
+	width:100%;
+}
+
+.info p{
+	display: inline;
+	font-size: 16px;
+	font-family: "Montserrat";
+}
+
 /*
 a:link 
 a:visited 
